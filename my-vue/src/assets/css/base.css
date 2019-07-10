@@ -1,0 +1,46 @@
+html,body,div,dl,dd,dt,ul,li,p{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: #fff;
+}
+ol,ul,li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+.ell{
+    overflow: hidden;            /* 除了visible以外的值 */
+    white-space: nowrap;         /* 文字不换行 */
+    text-overflow: ellipsis;
+}
+.dib{
+    display: inline-block;
+    vertical-align: middle;
+}
+.l{
+    float: left;
+}
+.r{
+    float: right;
+}
+.ovh{
+    overflow: hidden;
+}
+.cur{
+    cursor: pointer;
+}
+.btn{
+    color: #f90;
+    cursor: pointer;
+}
+.btn2{
+    color: #f90;
+    cursor: pointer;
+}
+.btn:hover{
+    text-decoration: underline;
+    opacity: .8;
+}
