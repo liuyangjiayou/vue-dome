@@ -7,6 +7,7 @@
             <router-link to="/record">档案</router-link>
             <router-link to="/attendance">考勤</router-link>
             <router-link to="/integral">积分</router-link>
+            <router-link to="/test">测试</router-link>
             <router-link to="/invite">招聘</router-link>
             <router-link to="/thing">事物</router-link>
             <router-link to="/phone">副号</router-link>

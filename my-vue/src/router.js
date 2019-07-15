@@ -42,6 +42,10 @@ export default new Router({
       component : resolve => require(['./views/Integral.vue'],resolve),
     },
     {
+      path : '/test',
+      component : resolve => require(['./views/test.vue'],resolve),
+    },
+    {
       path: '/',
       redirect : {
         path : '/home',
