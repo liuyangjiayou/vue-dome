@@ -6,7 +6,7 @@
             <div class="zf-alert-content-box">
                 <slot></slot>
             </div>
-            <div class="zf-alert-btn-box">
+            <div v-if="isBtn" class="zf-alert-btn-box">
                 <zf-button @click.native="closeFn">{{closeBtn}}</zf-button>
                 <zf-button @click.native="sucFn" state="success">{{subBtn}}</zf-button>
             </div>
@@ -22,14 +22,26 @@
         isshow : {
             type : Boolean,//控制弹窗的显隐
             default : false,
-        }
+        },
+        isBtn : {
+            type : Boolean,//控制弹窗的显隐
+            default : true,
+        },
+        title : {
+            default : "信息",
+        },
+        closeBtn : {
+            type : String,
+            default : "取消",
+        },
+        subBtn : {
+            type : String,
+            default : "确定",
+        },
     },
     data () {
       return {
-        content : '我是默认的内容',
-        title : '信息', //这个是默认的信息
-        closeBtn : '取消',
-        subBtn : '确定',
+          
       };
     },
 
@@ -90,7 +102,7 @@
     display: inline-block;
     vertical-align: middle;
     padding-bottom: 10px;
-    width: 400px;
+    min-width: 400px;
     background: #fff;
     text-align: left;
 }

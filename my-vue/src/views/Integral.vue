@@ -5,7 +5,7 @@
       </div>
 
     <div class="wrap">
-        <file-upload ref="upload" postAction='https://www.baidu.com' :drop="true" :maximum="3" :multiple="true" @input-filter="inputFilter"  v-model="files" input-id="111" name="aaa">上传文件</file-upload>
+        <file-upload ref="upload" postAction='/api/uploader' :drop="true" :maximum="3" :multiple="true" @input-filter="inputFilter"  v-model="files" input-id="111" name="aaa">上传文件</file-upload>
     </div>
     <ul class="img-wrap">
         <li v-for="(file,key) in files" :key="key">
@@ -19,10 +19,25 @@
     <file-upload input-id="111">继续添加文件</file-upload>
     <span @click="$refs.upload.active = true">开始上传</span>
     <span @click="$refs.upload.active = false">停止上传</span>
-    <zf-openBox :isshow.sync="editImgShow">
-        <div>
+    <zf-openBox title="编辑图片" :isshow.sync="editImgShow" :isBtn="true" subBtn="确定裁减" @sucFn="editImg">
+        <div class="eidt-img-box">
             <div>
-                <img :src="editFile.blob" @load="loadImage" ref="img">
+                <p>图片名称：</p>
+                <zf-input w="100%" placeholder="请填写你的新图片名称"></zf-input>
+            </div>
+            <div>
+                <p>图片修改：</p>
+                <div class="big-img">
+                    <img :src="editFile.blob" @load="loadImage" ref="img">
+                </div>
+            </div>
+            <div class="btn-box">
+                <zf-button state="success" @click.native="cropper.rotate(-90)">左旋转</zf-button>
+                <zf-button state="success" @click.native="cropper.rotate(90)">右旋转</zf-button>
+                <zf-button state="success" @click.native="cropper.move(-10,0)">向左移</zf-button>
+                <zf-button state="success" @click.native="cropper.move(10,0)">向右移</zf-button>
+                <zf-button state="success" @click.native="cropper.move(0,-10)">向上移动</zf-button>
+                <zf-button state="success" @click.native="cropper.move(0,10)">向下移动</zf-button>
             </div>
         </div>
     </zf-openBox>
@@ -34,7 +49,7 @@ import 'cropperjs/dist/cropper.min.css'
 import Cropper from 'cropperjs'
 import FileUpload from 'vue-upload-component'
 import CropperComponent from '../test/Cropper'
-import { futimes } from 'fs';
+import {uploadImg} from '../api/api'
   export default {
     name:'',
     props:[''],
@@ -79,7 +94,7 @@ import { futimes } from 'fs';
     methods: {
         edit(file){
             this.editImgShow = true;
-            this.editFile.blob = file.blob
+            this.editFile = file
         },
         loadImage(){
             console.log(123);
@@ -97,6 +112,15 @@ import { futimes } from 'fs';
         replace(key1,key2){
             /* 两个文件之间的排序 */
             this.$refs.upload.replace(key1,key2);
+        },
+        /* 确定裁减 */
+        editImg(){
+            /* 首先获取canvas */
+            // this.cropper.getCroppedCanvas().toBlob((blob)=>{
+            //     console.log(blob);
+            // });
+            this.$refs.upload.update(this.editFile, {blob : this.cropper.getCroppedCanvas().toDataURL(this.editFile.type)});
+            this.editImgShow = false;
         },
         inputFilter(newFile, oldFile, prevent) {
             let that = this;
@@ -203,13 +227,18 @@ import { futimes } from 'fs';
         }
     }
 }
+//编辑图片的弹窗
+.eidt-img-box{
+    width: 768px;
+    height: 632px;
+}
 .big-img{
-    width: 300px;
-    height: 500px;
+    width: 768px;
+    height: 450px;
+    overflow: hidden;
     img{
         width: 100%;
         height: auto;
     }
 }
-
 </style>
