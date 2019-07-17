@@ -32,9 +32,9 @@ app.post("/api/uploader",function (req,res) {
     //处理图片
     form.parse(req, function (err, fields, files){
         var filename = files.aaa.name
-        console.log(files);
         var nameArray = filename.split('.');
-        var type = nameArray[nameArray.length - 1];
+        var type = files.aaa.type.split('/')[1];
+        console.log(type);
         var name = '';
         for (var i = 0; i < nameArray.length - 1; i++) {
             name = name + nameArray[i];

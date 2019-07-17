@@ -166,8 +166,14 @@ import {uploadImg} from '../api/api'
                 //    console.log(newFile.file);
                 }
             }
-
             if (newFile && oldFile) {
+                 // 创建 `blob` 字段 用于缩略图预览
+                newFile.blob = ''
+                let URL = window.URL || window.webkitURL
+                if (URL && URL.createObjectURL) {
+                    newFile.blob = URL.createObjectURL(newFile.file);
+                //    console.log(newFile.file);
+                }
                 // 更新文件
                 // console.log('更新文件');
                 // 增加版本号
