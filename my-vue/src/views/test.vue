@@ -370,6 +370,7 @@
 </style>
 
 <script>
+import 'cropperjs/dist/cropper.min.css'
 import Cropper from 'cropperjs'
 import ImageCompressor from '@xkeshi/image-compressor'
 import FileUpload from 'vue-upload-component'
@@ -556,6 +557,7 @@ export default {
         data.file = new File([arr], data.name, { type: this.editFile.type })
         data.size = data.file.size
       }
+      console.log(data);
       this.$refs.upload.update(this.editFile.id, data)
       this.editFile.error = ''
       this.editFile.show = false

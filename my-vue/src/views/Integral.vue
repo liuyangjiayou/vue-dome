@@ -1,11 +1,7 @@
 <template>
   <div>
-      <div>
-          <CropperComponent class="view-img"></CropperComponent>
-      </div>
-
     <div class="wrap">
-        <file-upload ref="upload" postAction='/api/uploader' :drop="true" :maximum="3" :multiple="true" @input-filter="inputFilter"  v-model="files" input-id="111" name="aaa">上传文件</file-upload>
+        <file-upload ref="upload" postAction='http://localhost:4000/api/uploader' :drop="true" :maximum="3" :multiple="true" @input-filter="inputFilter"  v-model="files" input-id="111" name="aaa">上传文件</file-upload>
     </div>
     <ul class="img-wrap">
         <li v-for="(file,key) in files" :key="key">
@@ -115,12 +111,28 @@ import {uploadImg} from '../api/api'
         },
         /* 确定裁减 */
         editImg(){
+            let that = this;
+         
             /* 首先获取canvas */
             // this.cropper.getCroppedCanvas().toBlob((blob)=>{
             //     console.log(blob);
             // });
-            this.$refs.upload.update(this.editFile, {blob : this.cropper.getCroppedCanvas().toDataURL(this.editFile.type)});
+            // this.$refs.upload.update(this.editFile, {blob : this.cropper.getCroppedCanvas().toDataURL(this.editFile.type)});
+            // this.editImgShow = false;
+            let data = {
+                name :'我是一个测试的名字',
+            };
+            let binStr = atob(this.cropper.getCroppedCanvas().toDataURL(this.editFile.type).split(',')[1]);
+            let arr = new Uint8Array(new ArrayBuffer(binStr.length));
+            for (let i = 0; i < binStr.length; i++) {
+                arr[i] = binStr.charCodeAt(i)
+            };
+            data.file = new File([arr], data.name, { type: this.editFile.type });
+            data.size = data.file.size
+            console.log(data);
+            this.$refs.upload.update(that.editFile.id, data);
             this.editImgShow = false;
+
         },
         inputFilter(newFile, oldFile, prevent) {
             let that = this;
@@ -151,7 +163,7 @@ import {uploadImg} from '../api/api'
                 let URL = window.URL || window.webkitURL
                 if (URL && URL.createObjectURL) {
                     newFile.blob = URL.createObjectURL(newFile.file);
-                   console.log(newFile.file);
+                //    console.log(newFile.file);
                 }
             }
 

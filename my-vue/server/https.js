@@ -1,34 +1,52 @@
-var express = require('express');
-var app = express();
-// app.get(/.*/, function(req, res){
-//   res.sendFile('./dist/index.html');
-// });
-// app.all('*', function (req, res, next) {
-
-//     res.header('Access-Control-Allow-Origin', 'http://test.test.com:8080');
-  
-//     res.header('Access-Control-Allow-Credentials', true);
-  
-//     res.header('Access-Control-Allow-Headers', 'Content-Type,Content-Length, Authorization, Accept,X-Requested-With')
-  
-//     res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS');
-  
-//     res.header('Content-Type', 'application/json;charset=utf-8');
-  
-//     next()
-  
-//   });
-// app.get('/api/uploader', function(req, res){
-//     res.send({
-//         name :'11'
-//     });
-// });
-app.post('/api/uploader', function(req, res){
-    res.send({
-        name :'11'
-    });
+var path = require("path");
+var fs = require("fs");
+var express =require("express");
+var app=express();
+var bodyParser = require('body-parser');
+var formidable = require('formidable');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+//设置跨域访问
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By", ' 3.2.1');
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next();
 });
+app.get('/api',function(req,res){
+    res.send({
+        name : '1'
+    })
+})
 
-app.listen(4000,function(){
-    console.log('服务启动成功111');
+
+//拦截请求
+app.post("/api/uploader",function (req,res) {
+    var form = new formidable.IncomingForm();
+    form.encoding = 'utf-8';
+    form.uploadDir = path.join(__dirname + "/../uploader");
+    form.keepExtensions = true;//保留后缀
+    form.maxFieldsSize = 2 * 1024 * 1024;
+    //处理图片
+    form.parse(req, function (err, fields, files){
+        var filename = files.aaa.name
+        console.log(files);
+        var nameArray = filename.split('.');
+        var type = nameArray[nameArray.length - 1];
+        var name = '';
+        for (var i = 0; i < nameArray.length - 1; i++) {
+            name = name + nameArray[i];
+        }
+        var date = new Date();
+        var time = '_' + date.getFullYear() + "_" + date.getMonth() + "_" + date.getDay() + "_" + date.getHours() + "_" + date.getMinutes();
+        var avatarName = name + time + '.' + type;
+        var newPath = form.uploadDir + "/" + avatarName;
+        fs.renameSync(files.aaa.path, newPath);  //重命名
+        res.send({data:"/upload/"+avatarName})
+    })
+});
+app.listen("4000",function () {
+    console.log("服务启动111")
 });
