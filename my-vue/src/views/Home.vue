@@ -7,7 +7,8 @@
         </div>
         <div class="r right-box">
           <div>
-              <zf-input v-model="keyword" placeholder="输入姓名、手机号或系统号"></zf-input>
+              <zf-input v-model="keyword" v-validate.initial="'required|mobile'" data-vv-as="关键字不能为空" data-vv-name="keyword" placeholder="输入姓名、手机号或系统号"></zf-input>
+              <zf-button @click.native="changeSex" state="success">点击我改变性别</zf-button>
               <zf-button @click.native="sreachFn(keyword)" w="90px" h="40px" f="16px" brd="2px" state="success">搜索</zf-button>
           </div>
           <div class="table-list">
@@ -47,6 +48,7 @@
   import Menu from '../pageComponent/Menu';
   import TableLi from '../components/table2';
   import Pagination from '../components/pagination';
+  import { mapState,mapGetters,mapActions} from 'vuex'
   export default {
     name:'',
     props:[''],
@@ -117,7 +119,12 @@
     },
 
     computed: {
-      
+      ...mapState({
+        count : state => state.count,
+        number : state => state.number,
+        info : state => state.info,
+      }),
+      ...mapGetters(['test'])
     },
 
     beforeMount() {},
@@ -125,10 +132,27 @@
     mounted() {
     },
     methods: {
+      ...mapActions([
+        'changeinfosex'
+      ]),
       sreachFn(keyword){
-        this.zfMsg({
-          msg : `${keyword}搜索成功！！`
-        })
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            console.log(1);
+            return false;
+          }
+          // this.$validator.fields.find
+          console.log(this.$validator.fields.find({name : Object.entries(this.$validator.errors.collect())[0][0]}).el);
+          // let ele = this.$validator.errors.collect().find(item=>{
+          //   console.log(item);
+          // })
+        });
+        // this.zfMsg({
+        //   type : 2,
+        //   msg : this.$validator.errors.first('keyword'),
+        // });
+        // return false;
+       
       },
       resetPass(data){
         let id =  data.id;
@@ -153,6 +177,10 @@
             })
           }
         });
+      },
+      /* 修改性别 */
+      changeSex(){
+        this.changeinfosex('女');
       }
     },
     watch: {}

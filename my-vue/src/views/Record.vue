@@ -53,7 +53,7 @@
                         <td>{{slotProps.todo.state}}</td>
                         <td>{{slotProps.todo.date}}</td>
                         <td>{{slotProps.todo.typeIn}}</td>
-                        <td class="btn">查看</td>
+                        <router-link class="btn" to="/attendance/details" tag="td">查看</router-link>
                     </tr>
                 </template>
             </Table>

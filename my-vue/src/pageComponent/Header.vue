@@ -3,6 +3,7 @@
       <div class="header-min">
         <div class="logo">HR</div>
         <div>
+           <!-- <router-link v-for="(router,index) in newRouter" :key="index" :to="router.path">{{router.name}}</router-link> -->
             <router-link to="/home">员工</router-link>
             <router-link to="/record">档案</router-link>
             <router-link to="/attendance">考勤</router-link>
@@ -17,19 +18,23 @@
 </template>
 
 <script>
-
+  import { mapGetters,mapState } from 'vuex'
   export default {
     name:'',
     props:[''],
     data () {
       return {
-
+        
       };
     },
 
     components: {},
 
-    computed: {},
+    computed: {
+      ...mapState({
+        newRouter : state => state.newRouter,
+      })
+    },
 
     beforeMount() {},
 
