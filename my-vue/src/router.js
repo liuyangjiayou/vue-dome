@@ -10,12 +10,21 @@ let router = new Router({
     {
       path: '/home',
       name: 'home',
-      component: resolve => require(['./views/Home.vue'], resolve)
+      component: resolve => require(['./views/Home.vue'], resolve),
+      meta : {
+        title : '首页'
+      }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: resolve => require(['./views/login.vue'], resolve),
+      title : '登录页'
     },
     {
       path: '/',
       redirect : {
-        path : '/home',
+        path : '/login',
       }
     },
     // {
@@ -32,17 +41,21 @@ let router = new Router({
 let dynamic = [
   {
     path : '/record',
-    name : '档案',
-    routerName : '档案1',
+    name : 'record',
     component: resolve => require(['./views/Record.vue'], resolve),
-    meta : {role : 'record'}
+    meta : {
+      title : '档案',
+      role : 'record'
+    }
   },
   {
     path : '/attendance',
-    name : '考勤',
-    routerName : '档案2',
+    name : 'attendance',
     component: resolve => require(['./views/Attendance/Attendance.vue'], resolve),
-    meta : {role : 'attendance'},
+    meta : {
+      title : '考勤',
+      role : 'attendance'
+    },
     children: [
       {
         path : '/attendance',
@@ -62,21 +75,37 @@ let dynamic = [
   },
   {
     path : '/integral',
-    name : '积分',
-    routerName : '档案3',
+    name : 'integral',
     component : resolve => require(['./views/Integral.vue'],resolve),
-    meta : {role : 'integral'},
+    meta : {
+      title : '积分',
+      role : 'integral'
+    },
   },
   {
     path : '/test',
-    name : '测试',
-    routerName : '档案4',
+    name : 'test',
     component : resolve => require(['./views/test.vue'],resolve),
-    meta : {role : 'test'},
+    meta : {
+      title : '测试',
+      role : 'test'
+    },
   },
 ]
 store.dispatch('setRouter',dynamic);
 router.addRoutes(dynamic);
+router.beforeEach((to,form,next)=>{
+  if (to.path === '/login') {
+    next();
+  } else {
+    let token = JSON.parse(localStorage.getItem('zfToken'));
+    if (token && token != '') {
+      next();
+    } else {
+      next('/login');
+    }
+  }
+});
 // let newRouterArr = [];
 // let newRouter = dynamic.filter(item =>{
 //     let isRouter =  store.getters.getRoles.some(role=>item.meta.role == role);

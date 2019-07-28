@@ -13,6 +13,7 @@ export default {
             instance.$el.style.zIndex = (new Date()).valueOf();
             setTimeout(function(){
                 instance.$el.remove();
+                config.callback ? config.callback() : null;
             },config.time ? config.time : 3500);
         }
     }

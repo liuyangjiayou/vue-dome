@@ -19,8 +19,9 @@ Vue.use(OpenBox);
 Vue.use(Msg);
 Vue.use(datePicker);
 import './validator/validator';
-new Vue({
+let vue = new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount('#app')
+export default vue

@@ -1,10 +1,11 @@
 <template>
   <div>
     <!-- 头部 -->
-    <Header></Header>
+    <Header class="header"></Header>
     <!-- main -->
-     <div class="main">
-        <!-- 档案详情页面的 个人信息 -->
+     <div class="main ovh">
+      <div class="l">
+           <!-- 档案详情页面的 个人信息 -->
         <div class="content-box info-content-box ovh">
           <div class="l img-box">
             <img src="" alt="">
@@ -117,15 +118,22 @@
             <ul class="l"><li><p>备注</p><p>暂无</p></li></ul>
           </div>
         </div>
+      </div>
+      <div class="r">
+        <AttendanceRecord></AttendanceRecord>
+        <AttendanceRecord2></AttendanceRecord2>
+      </div>
     </div>
     <!-- 尾部 -->
-    <Footer></Footer>
+    <Footer class="footer"></Footer>
   </div>
 </template>
 
 <script>
 import Header from '../../pageComponent/Header';
 import Footer from '../../pageComponent/Footer';
+import AttendanceRecord from '../../pageComponent/AttendanceRecord';
+import AttendanceRecord2 from '../../pageComponent/AttendanceRecord2';
   export default {
     name:'',
     props:[''],
@@ -137,7 +145,9 @@ import Footer from '../../pageComponent/Footer';
 
     components: {
       Header,
-      Footer
+      Footer,
+      AttendanceRecord,
+      AttendanceRecord2
     },
 
     computed: {},
@@ -157,6 +167,8 @@ import Footer from '../../pageComponent/Footer';
 </script>
 <style lang='less' scoped>
     @import url(../../assets/css/common.less);
+    .header{margin-bottom: 50px;}
+    .footer{margin-top: 60px;}
     .main{
       .marginAuto(1200px,0);
     }
@@ -256,4 +268,6 @@ import Footer from '../../pageComponent/Footer';
         }
       }
     }
+    /* 右侧的记录内容 */
+
 </style>
