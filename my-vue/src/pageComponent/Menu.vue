@@ -1,8 +1,10 @@
 <template>
   <div class="menu-box">
       <p class="title">组织结构</p>
-      <MenuList :menuList="list">
-           <MenuList :menuList="list"></MenuList>
+      <MenuList @click.native="changeShow" :menuList="list">
+           <MenuList v-show="fold" :menuList="list">
+              <MenuList :menuList="list"></MenuList>
+           </MenuList>
       </MenuList>
   </div>
 </template>
@@ -14,6 +16,7 @@
     props:[''],
     data () {
       return {
+          fold : false,
           list : [
             {
                 title : '二手房业务部',
@@ -23,7 +26,7 @@
                 title : '技术部',
                 id : 2,
             }
-          ]
+          ],
       };
     },
 
@@ -37,7 +40,11 @@
 
     mounted() {},
 
-    methods: {},
+    methods: {
+      changeShow(){
+        this.fold = !this.fold 
+      }
+    },
 
     watch: {}
 

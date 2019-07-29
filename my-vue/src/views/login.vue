@@ -42,7 +42,7 @@
                             </p>
                         </li>
                         <li>
-                            <zf-button @click.native="login" w="267px" m="25px auto 10px" h="40px" brd="3px" state="success">登录</zf-button>
+                            <zf-button @click.native.enter="login" w="267px" m="25px auto 10px" h="40px" brd="3px" state="success">登录</zf-button>
                         </li>
                         <li>
                              <p class="retrieve"> <a href="https://sjz.as.fc.wang/password/find.html">忘记密码？</a> <a class="r" href="/index/register/index.html">注册终端</a> </p>

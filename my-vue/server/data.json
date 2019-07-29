@@ -2,11 +2,54 @@
     "user" : [
         {
             "username" : "liuyang",
-            "password" : "123456"
+            "password" : "123456",
+            "token" : "tokenliuyang"
         },
         {
             "username" : "banyanning",
-            "password" : "654321"
+            "password" : "654321",
+            "token" : "tokenbanyanning"
+        }
+    ],
+    "department" : [
+        {
+            "title" : "二手房事业部",
+            "child" : [
+                {
+                    "title" : "桥西大区",
+                    "child" : [
+                        {
+                            "title" : "桥西一区",
+                            "child" : [
+                                {
+                                    "title" : "西里一店"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title" : "新华大区",
+                    "child" : [
+                        {
+                            "title" : "桥西二区",
+                            "child" : [
+                                {
+                                    "title" : "西里二店"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title" : "技术部",
+            "child" : [
+                {
+                    "title" : ""
+                }
+            ]
         }
     ]
 }

@@ -2,7 +2,7 @@
   <div class="menu-box-list">
       <ul>
         <li v-for="(item,index) in menuList" :key="index">
-            <router-link :to="{path : '/',query : {id : item.id}}" tag="div"> 
+            <router-link :to="{path : '/home',query : {id : item.id}}" tag="div"> 
                 <span class="icon icon1">
                 </span><span class="text">{{item.title}}</span>
             </router-link>
@@ -18,9 +18,13 @@
     name:'',
     props:{
         menuList : Array,
+        isShow : {
+          default : 1,
+        },
     },
     data () {
       return {
+        active : true,
       };
     },
 

@@ -32,7 +32,6 @@ function changeResult(data){
 app.post('/api/login',function(req,res){
     readFile('./data.json').then(data=>{
         data = JSON.parse(data);
-        console.log(req.header('Authorization'));
         if(!data.user.some(item => item.username == req.body.username)){
             console.log(!data.user.some(item => item.username == req.body.username));
             res.send(changeResult({
@@ -52,12 +51,27 @@ app.post('/api/login',function(req,res){
                 code : 1,
                 msg : "登录成功",
                 data : {
-                    token : 'token132456789'
+                    token : 'tokenliuyang'
                 }
             }));
         }
     });
-})
+});
+/* 获取部门结构 */
+app.get('/api/department',function(req,res){
+    readFile('./data.json').then(data=>{
+        data = JSON.parse(data);
+
+    });
+});
+
+
+
+
+
+
+
+
 
 //拦截请求
 app.post("/api/uploader",function (req,res) {
