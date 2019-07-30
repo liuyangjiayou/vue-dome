@@ -10,11 +10,13 @@ import Input from './components/input/input';
 import Alert from './components/alertCom/alertComponent';
 import Msg from './components/msgCom/msgComponent';
 import OpenBox from './components/openBox/openBoxComponent';
+import Menu from './components/menu/menuList';
 import datePicker from './components/inputDate/inputDate';
 /* 以下是自己封装的组件 end*/
 Vue.use(Button);
 Vue.use(Input);
 Vue.use(Alert);
+Vue.use(Menu);
 Vue.use(OpenBox);
 Vue.use(Msg);
 Vue.use(datePicker);

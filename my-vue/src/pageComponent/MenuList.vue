@@ -1,19 +1,10 @@
 <template>
-  <div class="menu-box-list">
-      <ul>
-        <li v-for="(item,index) in menuList" :key="index">
-            <router-link :to="{path : '/home',query : {id : item.id}}" tag="div"> 
-                <span class="icon icon1">
-                </span><span class="text">{{item.title}}</span>
-            </router-link>
-            <slot></slot>
-        </li>
-      </ul>
-  </div>
+<div class="l_tree_container">
+    <zf-menu :list="testdata" @callback="aaa"></zf-menu>
+</div>
 </template>
 
 <script>
-
   export default {
     name:'',
     props:{
@@ -25,6 +16,116 @@
     data () {
       return {
         active : true,
+        testdata: [
+                    {
+                      name: "一级菜单",
+                      children: [
+                          {
+                              name: '二级菜单',
+                              children: [
+                                  {
+                                      name: '三级菜单'
+                                  },
+                                  {
+                                      name: '三级菜单'
+                                  }
+                              ]
+                          },
+                          {
+                              name: '二级菜单',
+                              children: [
+                                  {
+                                      name: '三级菜单',
+                                      children: [
+                                          {
+                                              name: '四级菜单'
+                                          },
+                                          {
+                                              name: '四级菜单'
+                                          },
+                                          {
+                                              name: '四级菜单'
+                                          }
+                                      ]
+                                  },
+                                  {
+                                      name: '三级菜单',
+                                      children: [
+                                          {
+                                              name: '四级菜单',
+                                          }
+                                      ]
+                                  }
+                              ]
+                          },
+                          {
+                              name: '二级菜单',
+                              children: [
+                                  {
+                                      name: '三级菜单'
+                                  },
+                                  {
+                                      name: '三级菜单'
+                                  }
+                              ]
+                          }
+                      ]
+                  },
+                  {
+                      name: "一级菜单",
+                      children: [
+                          {
+                              name: '二级菜单',
+                              children: [
+                                  {
+                                      name: '三级菜单'
+                                  },
+                                  {
+                                      name: '三级菜单'
+                                  }
+                              ]
+                          },
+                          {
+                              name: '二级菜单',
+                              children: [
+                                  {
+                                      name: '三级菜单',
+                                      children: [
+                                          {
+                                              name: '四级菜单'
+                                          },
+                                          {
+                                              name: '四级菜单'
+                                          },
+                                          {
+                                              name: '四级菜单'
+                                          }
+                                      ]
+                                  },
+                                  {
+                                      name: '三级菜单',
+                                      children: [
+                                          {
+                                              name: '四级菜单',
+                                          }
+                                      ]
+                                  }
+                              ]
+                          },
+                          {
+                              name: '二级菜单',
+                              children: [
+                                  {
+                                      name: '三级菜单'
+                                  },
+                                  {
+                                      name: '三级菜单'
+                                  }
+                              ]
+                          }
+                      ]
+                  }
+              ]
       };
     },
 
@@ -36,7 +137,11 @@
 
     mounted() {},
 
-    methods: {},
+    methods: {
+      aaa(item){
+        console.log(item);
+      }
+    },
 
     watch: {}
 
@@ -69,4 +174,5 @@
     .icon2{
          background: url(../assets/icon.png)  -262px -4px no-repeat; 
     }
+
 </style>
