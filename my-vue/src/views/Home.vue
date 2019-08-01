@@ -3,7 +3,12 @@
       <Header></Header>
       <div class="main-box ovh">
         <div class="l">
-          <Menu></Menu>
+          <div class="menu-box">
+              <p class="title">组织结构</p>
+              <div class="menu_container">
+                <zf-menu :list="testdata"></zf-menu>
+            </div>
+          </div>
         </div>
         <div class="r right-box">
           <div>
@@ -45,7 +50,6 @@
 <script>
   import Header from '../pageComponent/Header';
   import Footer from '../pageComponent/Footer';
-  import Menu from '../pageComponent/Menu';
   import TableLi from '../components/table2';
   import Pagination from '../components/pagination';
   import { mapState,mapGetters,mapActions} from 'vuex'
@@ -107,13 +111,122 @@
               state : 0, //锁定
           }
         ],
+        testdata: [
+                    {
+                      name: "一级菜单",
+                      children: [
+                          {
+                              name: '二级菜单',
+                              children: [
+                                  {
+                                      name: '三级菜单'
+                                  },
+                                  {
+                                      name: '三级菜单'
+                                  }
+                              ]
+                          },
+                          {
+                              name: '二级菜单',
+                              children: [
+                                  {
+                                      name: '三级菜单',
+                                      children: [
+                                          {
+                                              name: '四级菜单'
+                                          },
+                                          {
+                                              name: '四级菜单'
+                                          },
+                                          {
+                                              name: '四级菜单'
+                                          }
+                                      ]
+                                  },
+                                  {
+                                      name: '三级菜单',
+                                      children: [
+                                          {
+                                              name: '四级菜单',
+                                          }
+                                      ]
+                                  }
+                              ]
+                          },
+                          {
+                              name: '二级菜单',
+                              children: [
+                                  {
+                                      name: '三级菜单'
+                                  },
+                                  {
+                                      name: '三级菜单'
+                                  }
+                              ]
+                          }
+                      ]
+                  },
+                  {
+                      name: "一级菜单",
+                      children: [
+                          {
+                              name: '二级菜单',
+                              children: [
+                                  {
+                                      name: '三级菜单'
+                                  },
+                                  {
+                                      name: '三级菜单'
+                                  }
+                              ]
+                          },
+                          {
+                              name: '二级菜单',
+                              children: [
+                                  {
+                                      name: '三级菜单',
+                                      children: [
+                                          {
+                                              name: '四级菜单'
+                                          },
+                                          {
+                                              name: '四级菜单'
+                                          },
+                                          {
+                                              name: '四级菜单'
+                                          }
+                                      ]
+                                  },
+                                  {
+                                      name: '三级菜单',
+                                      children: [
+                                          {
+                                              name: '四级菜单',
+                                          }
+                                      ]
+                                  }
+                              ]
+                          },
+                          {
+                              name: '二级菜单',
+                              children: [
+                                  {
+                                      name: '三级菜单'
+                                  },
+                                  {
+                                      name: '三级菜单'
+                                  }
+                              ]
+                          }
+                      ]
+                  }
+              ]
       }
     },
 
     components: {
       Header,
       Footer,
-      Menu,
       TableLi,
       Pagination,
     },
@@ -218,5 +331,22 @@
     width: 100%;
     text-align: center;
   }
-
+  .menu-box{
+      width: 253px;
+      border: 1px solid @ceb;
+      height: 754px;
+  }
+  .title{
+      .marginAuto(237px,0);
+      .height(46px);
+      .ft(16px);
+      border-bottom: 1px solid @ceb;
+      color: @c666;
+  }
+  .menu_container{
+    height: 706px;
+    max-height: 706px;
+    font-size: 14px;
+    overflow: auto;
+  }
 </style>

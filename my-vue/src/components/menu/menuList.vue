@@ -1,12 +1,13 @@
 <template>
-  <ul class="l_tree">
-      <li class="l_tree_branch" v-for="(item,index) in list" :key="index">
-          <div class="l_tree_click">
-              <button type="button" class="l_tree_children_btn" v-if="item.children"  @click="toggle(item)">{{ !item.show ? '-' : '+' }}</button>
-              <span class="l_folder">{{ item.name }}</span>
-          </div>
-          <zf-menu v-show="!item.show" @callback="callback" v-if="item.children" :list="item.children"></zf-menu>
-      </li>
+
+  <ul class="menu-list">
+	  <li class="menu-item" v-for="(item,index) in list" :key="index">
+		<div :class="[
+			'text-title',
+			{'active' : !item.children}
+		]" @click="toggle(item)"><i class='icon'></i><span>{{ item.name }}</span></div>
+		<zf-menu v-show="item.show" @callback="callback" v-if="item.children" :list="item.children"></zf-menu>
+	  </li>
   </ul>
 </template>
 
@@ -47,88 +48,65 @@
 
 </script>
 <style lang='less' scoped>
-*{
-	box-sizing: border-box;
-	margin: 0;padding: 0;
-}
-*:before,*:after{
-	box-sizing: border-box;
-}
-ul,
-li {
-	list-style: none;
-}
-
-.l_tree_container {
-	width: 100%;
-	height: 100%;
-	box-shadow: 0 0 3px #ccc;
-	margin: 13px;
+ @import url(../../assets/css/common.less);
+.menu-list{
 	position: relative;
+	margin-left: 17px;
+	line-height: 40px;
 }
-
-.l_tree {
-	width: calc(100% - 44px);
-	height: 100%;
-	padding-left: 42px;
-}
-.l_tree_branch {
-	width: 100%;
-	height: 100%;
-	display: block;
-	padding: 13px;
-	position: relative;
-}
-
-.l_tree_branch .l_tree_children_btn {
-	width: 19px;
-	height: 19px;
-	background-color: #23b1f0;
-	font-size: 14px;
-	text-align: center;
-	color: #ffffff;
-	outline: none;
-	border: 0;
-	cursor: pointer;
-}
-
-ul.l_tree:before {
+.menu-list:before{
 	content: '';
-	border-left: 1px dashed #999999;
-	height: calc(100%);
+	border-left: 1px solid #ebebeb;
+	height: calc(100% - 28px);
 	position: absolute;
-	left: 10px;
+	left: 6px;
 	top: 0px;
 }
-
-.l_tree .l_tree_branch:last-child::before {
-	content: '';
-	width: 3px;
-	height: calc(100% - 24px);
-	display: block;
-	background-color: #ffffff;
-	position: absolute;
-	bottom: 0;
-	left: -34px;
+.menu-item{
+	div{
+		position: relative;
+	}
+	div:before{
+		content: '';
+		border-top: 1px solid #ebebeb;
+		position: absolute;
+		width: 8px;
+		left: 14px;
+		top: 20px;
+		z-index: 0;
+	}
+	
+	.icon{
+		margin-right: 15px;
+		display: inline-block;
+		vertical-align: middle;
+		width: 12px;
+		height: 12px;
+		background: url('../../assets/icon.png') -244px -4px no-repeat;
+		cursor: pointer;
+	}
+	.icon.active{
+		background: url('../../assets/icon.png') -262px -4px no-repeat;
+	}
 }
-
-.l_tree,
-.l_tree_branch {
+.menu-item:last-child{
 	position: relative;
 }
-
-.l_tree_branch::after {
+.menu-item:last-child::before{
 	content: '';
-	width: 40px;
-	height: 0;
-	border-bottom: 1px dashed #000;
+	border-left: 1px solid #fff;
 	position: absolute;
-	right: calc(100% - 9px);
-	top: 22px;
+	height: ceil(100%);
+	left: 6px;
+	top: 20px;
+	z-index: 0;
 }
-
-.l_tree_container>.l_tree::before,
-.l_tree_container>.l_tree>.l_tree_branch::after {
-	display: none;
+.text-title{
+	cursor: pointer;
 }
+.text-title:hover{
+	color: #f90;
+}
+.text-title.active .icon{opacity: 0;}
+.text-title.active div:before{width: 8px;}
 </style>

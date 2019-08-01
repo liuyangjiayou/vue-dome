@@ -24,6 +24,9 @@ a{
     display: inline-block;
     vertical-align: middle;
 }
+.dn{
+    display: none;
+}
 .l{
     float: left;
 }
